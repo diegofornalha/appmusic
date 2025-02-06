@@ -1,0 +1,24 @@
+{
+  "description": "",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "projectType": 0,
+  "appid": "67a48a8ffd25860001c2ddb9",
+  "projectname": "Forca",
+  "isGameTourist": false,
+  "isFulljs": false,
+  "miniprogramRoot": "./dist",
+  "buildOption": {
+    "compilerSource": "wx"
+  }
+}

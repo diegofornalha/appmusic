@@ -1,0 +1,35 @@
+{
+    "tasks": [
+        {
+            "label": "dev watch",
+            "type": "shell",
+            "command": "npm run dev:weapp",
+            "isBackground": true,
+            "problemMatcher": {
+                "background": {
+                    "beginsPattern": "Taro",
+                    "endsPattern": "Compiled successfully"
+                }
+            },
+            "runOptions": {
+                "runOn": "appletPreview"
+            }
+        },
+        {
+            "label": "prod build",
+            "command": "npm run build:weapp",
+            "miniprogramDir": "dist-prod",
+            "runOptions": {
+                "runOn": "prodBuild"
+            }
+        },
+        {
+            "label": "deps install",
+            "type": "shell",
+            "command": "npm install",
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}
