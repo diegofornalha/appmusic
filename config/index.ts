@@ -1,5 +1,5 @@
 const config = {
-  projectName: 'appmusic',
+  projectName: 'Jogo da Forca',
   date: '2025-2-3',
   designWidth: 750,
   deviceRatio: {
