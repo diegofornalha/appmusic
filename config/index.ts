@@ -22,6 +22,19 @@ const config = {
     enable: false
   },
   mini: {
+    webpackChain(chain, webpack) {
+      chain.merge({
+        module: {
+          rules: [
+            {
+              test: /\.mjs$/,
+              include: /node_modules/,
+              type: "javascript/auto"
+            }
+          ]
+        }
+      })
+    },
     optimizeMainPackage: {
       enable: true
     },
@@ -35,6 +48,31 @@ const config = {
         config: {
           limit: 1024
         }
+      },
+      cssModules: {
+        enable: false,
+        config: {
+          namingPattern: 'module',
+          generateScopedName: '[name]__[local]___[hash:base64:5]'
+        }
+      }
+    }
+  },
+  h5: {
+    publicPath: '/',
+    staticDirectory: 'static',
+    output: {
+      filename: 'js/[name].[hash:8].js',
+      chunkFilename: 'js/[name].[chunkhash:8].js'
+    },
+    miniCssExtractPluginOption: {
+      filename: 'css/[name].[hash:8].css',
+      chunkFilename: 'css/[name].[chunkhash:8].css'
+    },
+    postcss: {
+      autoprefixer: {
+        enable: true,
+        config: {}
       },
       cssModules: {
         enable: false,

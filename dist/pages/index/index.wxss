@@ -1,4 +1,224 @@
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[4]!./src/pages/index/index.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.chat-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding: 12rpx;
+  padding-bottom: 80rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+}
 
+.messages-container {
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-bottom: 12rpx;
+  padding: 4rpx;
+  -webkit-overflow-scrolling: touch;
+}
+
+.message {
+  max-width: 80%;
+  padding: 10rpx 14rpx;
+  margin: 6rpx 0;
+  border-radius: 16rpx;
+  word-wrap: break-word;
+  position: relative;
+  -webkit-animation: fadeIn 0.3s ease-in-out;
+          animation: fadeIn 0.3s ease-in-out;
+  -webkit-box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.1);
+  font-size: 28rpx;
+  line-height: 1.4;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10rpx);
+            transform: translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10rpx);
+            transform: translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+.bot {
+  background-color: #ffffff;
+  -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
+          align-self: flex-start;
+  margin-right: auto;
+  border-bottom-left-radius: 4rpx;
+}
+
+.user {
+  background-color: #0084ff;
+  color: white;
+  -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
+          align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 4rpx;
+}
+
+.timestamp {
+  font-size: 22rpx;
+  color: rgba(153, 153, 153, 0.8);
+  margin-top: 4rpx;
+  text-align: right;
+}
+
+.input-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 12rpx 16rpx;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.06);
+          box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.06);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  gap: 12rpx;
+  min-height: 60rpx;
+}
+
+.message-input {
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 24rpx;
+  padding: 8rpx 16rpx;
+  font-size: 28rpx;
+  background: #f8f9fa;
+  color: #333;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  min-height: 45rpx;
+}
+
+.message-input:focus {
+  border-color: #0084ff;
+  background: #fff;
+  -webkit-box-shadow: 0 2rpx 8rpx rgba(0, 132, 255, 0.1);
+          box-shadow: 0 2rpx 8rpx rgba(0, 132, 255, 0.1);
+}
+
+.message-input::-webkit-input-placeholder {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.message-input::-moz-placeholder {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.message-input:-ms-input-placeholder {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.message-input::-ms-input-placeholder {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.message-input::placeholder {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.message-input:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+.send-button {
+  width: 50rpx;
+  height: 50rpx;
+  padding: 0;
+  margin: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  -webkit-box-shadow: 0 2rpx 8rpx rgba(0, 132, 255, 0.2);
+          box-shadow: 0 2rpx 8rpx rgba(0, 132, 255, 0.2);
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+}
+
+.send-button:not(:disabled):active {
+  -webkit-transform: scale(0.95);
+      -ms-transform: scale(0.95);
+          transform: scale(0.95);
+  background-color: #0073e6;
+}
+
+.send-button:disabled {
+  background-color: #e0e0e0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  opacity: 0.8;
+}
+
+.send-icon {
+  font-size: 28rpx;
+  line-height: 1;
+  -webkit-transform: rotate(45deg) translateY(-1rpx);
+      -ms-transform: rotate(45deg) translateY(-1rpx);
+          transform: rotate(45deg) translateY(-1rpx);
+  color: #fff;
+}
+
+.typing-indicator {
+  padding: 8rpx 16rpx;
+  font-size: 24rpx;
+  color: #666;
+  font-style: italic;
+  opacity: 0.8;
+}

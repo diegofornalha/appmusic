@@ -199,7 +199,6 @@
 /******/ 			"app": [
 /******/ 				"webpack/container/remote/@tarojs/plugin-platform-weapp/dist/runtime",
 /******/ 				"webpack/container/remote/@tarojs/plugin-framework-react/dist/runtime",
-/******/ 				"webpack/container/remote/@tarojs/taro",
 /******/ 				"webpack/container/remote/react-dom"
 /******/ 			],
 /******/ 			"pages/index/index": [
@@ -207,6 +206,7 @@
 /******/ 			],
 /******/ 			"common": [
 /******/ 				"webpack/container/remote/@tarojs/runtime",
+/******/ 				"webpack/container/remote/@tarojs/taro",
 /******/ 				"webpack/container/remote/react"
 /******/ 			]
 /******/ 		};
@@ -219,11 +219,6 @@
 /******/ 			"webpack/container/remote/@tarojs/plugin-framework-react/dist/runtime": [
 /******/ 				"default",
 /******/ 				"./@tarojs/plugin-framework-react/dist/runtime",
-/******/ 				null
-/******/ 			],
-/******/ 			"webpack/container/remote/@tarojs/taro": [
-/******/ 				"default",
-/******/ 				"./@tarojs/taro",
 /******/ 				null
 /******/ 			],
 /******/ 			"webpack/container/remote/react-dom": [
@@ -239,6 +234,11 @@
 /******/ 			"webpack/container/remote/@tarojs/runtime": [
 /******/ 				"default",
 /******/ 				"./@tarojs/runtime",
+/******/ 				null
+/******/ 			],
+/******/ 			"webpack/container/remote/@tarojs/taro": [
+/******/ 				"default",
+/******/ 				"./@tarojs/taro",
 /******/ 				null
 /******/ 			],
 /******/ 			"webpack/container/remote/react": [
