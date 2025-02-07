@@ -4,8 +4,12 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
     "es6": false,
+    "minify": false,
+    "minifyWXSS": false,
+    "autoPrefixWXSS": false,
+    "obfuscate": false,
+    "urlCheck": true,
     "enhance": false,
     "compileHotReLoad": false,
     "postcss": false,
