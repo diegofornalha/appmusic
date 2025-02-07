@@ -1,0 +1,42 @@
+// Cores
+$color-primary: #FF8C00;
+$color-secondary: #FFA07A;
+$color-text: #2c3e50;
+$color-success: #4caf50;
+$color-error: #f44336;
+$color-white: #ffffff;
+
+// Gradientes
+$gradient-primary: linear-gradient(135deg, $color-secondary 0%, $color-primary 100%);
+$gradient-success: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+$gradient-error: linear-gradient(135deg, #f44336 0%, #e53935 100%);
+
+// Sombras
+$shadow-default: 0 4px 15px rgba(255, 140, 0, 0.2);
+$shadow-light: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+// Bordas
+$border-radius-sm: 10px;
+$border-radius-md: 15px;
+$border-radius-lg: 20px;
+$border-radius-full: 25px;
+
+// Espaçamento
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 15px;
+$spacing-xl: 20px;
+
+// Fontes
+$font-size-sm: 16px;
+$font-size-md: 24px;
+$font-size-lg: 32px;
+$font-size-xl: 36px;
+
+// Breakpoints
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Dimensões
+$container-max-width: 600px; 

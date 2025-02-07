@@ -1,191 +1,112 @@
-import { Component, PropsWithChildren, createRef } from 'react'
-import { View, Text, ScrollView, Input, Button } from '@tarojs/components'
+/// <reference types="@tarojs/taro" />
+import React, { useEffect } from 'react'
+import { View, Input, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import './index.scss'
+import ReactConfetti from 'react-confetti'
+import { APP_CONFIG } from '../../constants/config'
+import { QUESTIONS } from '../../constants/questions'
+import { KEYBOARD_CONFIG } from '../../constants/keyboard'
+import { useGameLogic } from '../../hooks/useGameLogic'
+import { useKeyboard } from '../../hooks/useKeyboard'
+import Keyboard from '../../components/Keyboard'
+import Hangman from '../../components/Hangman'
+import GameStatus from '../../components/GameStatus'
+import FinalScreen from '../../components/FinalScreen'
+import LettersHistory from '../../components/LettersHistory'
+import { getGameMessages } from '../../utils/messages'
+import '../../styles/index.scss'
 
-interface Message {
-  id: number
-  text: string
-  isBot: boolean
-  timestamp: string
-}
-
-interface IState {
-  messages: Message[]
-  inputValue: string
-  isTyping: boolean
-  isSending: boolean
-}
-
-export default class Index extends Component<PropsWithChildren, IState> {
-  private scrollViewRef = createRef()
-  private inputRef = createRef()
-
-  config = {
-    navigationBarTitleText: 'Chat',
-    navigationBarTextStyle: 'black',
-    backgroundColor: '#f8f9fa'
-  }
-
-  getTimestamp = () => {
-    const now = new Date()
-    return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
-  }
-
-  state: IState = {
-    messages: [
-      { 
-        id: 1, 
-        text: 'Olá! Como posso ajudar?', 
-        isBot: true,
-        timestamp: this.getTimestamp()
-      }
-    ],
-    inputValue: '',
-    isTyping: false,
-    isSending: false
-  }
-
-  scrollToBottom = () => {
-    if (this.scrollViewRef.current) {
-      const query = Taro.createSelectorQuery()
-      query.select('.messages-container').boundingClientRect()
-      query.exec(res => {
-        if (res[0]) {
-          Taro.pageScrollTo({
-            scrollTop: res[0].height,
-            duration: 300
-          })
-        }
-      })
-    }
-  }
-
-  componentDidMount() {
-    this.scrollToBottom()
+const Index: React.FC = () => {
+  useEffect(() => {
     Taro.setNavigationBarTitle({
-      title: 'Chat'
+      title: APP_CONFIG.TITLE
     })
-  }
+  }, [])
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.messages.length !== this.state.messages.length) {
-      this.scrollToBottom()
-    }
-  }
+  const {
+    state,
+    handleGuess,
+    restartGame,
+    getMaskedWord,
+    getFinalMessage
+  } = useGameLogic()
 
-  handleInput = (e) => {
-    this.setState({
-      inputValue: e.detail.value
-    })
-  }
+  const {
+    state: keyboardState,
+    toggleKeyboard
+  } = useKeyboard(handleGuess)
 
-  handleFocus = () => {
-    setTimeout(this.scrollToBottom, 300)
-  }
+  const {
+    currentQuestionIndex,
+    guessedLetters,
+    wrongGuesses,
+    showTranslation,
+    correctCount,
+    gameStatus,
+    countdown,
+    showConfetti
+  } = state
 
-  simulateBotResponse = () => {
-    this.setState({ isTyping: true })
+  const { windowWidth, windowHeight, showKeyboard } = keyboardState
 
-    setTimeout(() => {
-      const botMessage = {
-        id: this.state.messages.length + 2,
-        text: 'Entendi! Como posso ajudar com isso?',
-        isBot: true,
-        timestamp: this.getTimestamp()
-      }
+  // Renderiza o confete apenas na versão H5
+  const confetti = process.env.TARO_ENV === 'h5' && showConfetti ? (
+    <ReactConfetti
+      width={windowWidth}
+      height={windowHeight}
+      recycle={false}
+      numberOfPieces={KEYBOARD_CONFIG.CONFETTI_PIECES}
+      gravity={KEYBOARD_CONFIG.CONFETTI_GRAVITY}
+    />
+  ) : null
 
-      this.setState(prevState => ({
-        messages: [...prevState.messages, botMessage],
-        isTyping: false
-      }))
-    }, 1500)
-  }
-
-  handleSend = async () => {
-    if (!this.state.inputValue.trim() || this.state.isSending) return
-
-    this.setState({ isSending: true })
-
-    const newMessage = {
-      id: this.state.messages.length + 1,
-      text: this.state.inputValue,
-      isBot: false,
-      timestamp: this.getTimestamp()
-    }
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 150))
-      this.setState(prevState => ({
-        messages: [...prevState.messages, newMessage],
-        inputValue: '',
-        isSending: false
-      }), () => {
-        this.simulateBotResponse()
-      })
-    } catch (error) {
-      this.setState({ isSending: false })
-      Taro.showToast({
-        title: 'Erro ao enviar mensagem',
-        icon: 'none'
-      })
-    }
-  }
-
-  render() {
-    const { messages, inputValue, isTyping, isSending } = this.state
-
+  if (gameStatus === 'finished' || currentQuestionIndex >= QUESTIONS.length) {
     return (
-      <View className='chat-container'>
-        <ScrollView
-          className='messages-container'
-          scrollY
-          scrollWithAnimation
-          ref={this.scrollViewRef}
-          enhanced
-          showScrollbar={false}
-          bounces={false}
-        >
-          {messages.map(message => (
-            <View 
-              key={message.id} 
-              className={`message ${message.isBot ? 'bot' : 'user'}`}
-            >
-              <Text>{message.text}</Text>
-              <Text className='timestamp'>{message.timestamp}</Text>
-            </View>
-          ))}
-          {isTyping && (
-            <View className='message bot typing-indicator'>
-              <Text>Digitando...</Text>
-            </View>
-          )}
-        </ScrollView>
-
-        <View className='input-container'>
-          <Input
-            className='message-input'
-            type='text'
-            value={inputValue}
-            onInput={this.handleInput}
-            onFocus={this.handleFocus}
-            placeholder='Digite sua mensagem...'
-            ref={this.inputRef}
-            disabled={isSending}
-            confirmType='send'
-            confirmHold
-          />
-          <Button 
-            className='send-button'
-            onClick={this.handleSend}
-            disabled={!inputValue.trim() || isSending}
-          >
-            <View className='send-icon'>
-              <Text>→</Text>
-            </View>
-          </Button>
-        </View>
-      </View>
+      <FinalScreen
+        message={getFinalMessage()}
+        correctCount={correctCount}
+        totalQuestions={QUESTIONS.length}
+        countdown={countdown}
+        onRestart={restartGame}
+      />
     )
   }
+
+  const currentQuestion = QUESTIONS[currentQuestionIndex]
+
+  return (
+    <View className='game-container'>
+      {confetti}
+      
+      <GameStatus
+        currentQuestion={currentQuestion}
+        currentIndex={currentQuestionIndex}
+        totalQuestions={QUESTIONS.length}
+        correctCount={correctCount}
+        showTranslation={showTranslation}
+        maskedWord={getMaskedWord()}
+        isGameOver={gameStatus === 'lost'}
+        countdown={countdown}
+        answer={currentQuestion.answer}
+        wrongGuesses={wrongGuesses}
+        onKeyPress={handleGuess}
+        guessedLetters={guessedLetters}
+        disabled={gameStatus !== 'playing'}
+        showKeyboard={showKeyboard}
+      />
+
+      <View className='game-content'>
+        {process.env.TARO_ENV === 'weapp' && (
+          <Button
+            className='keyboard-toggle'
+            onClick={toggleKeyboard}
+          >
+            {showKeyboard ? '⌨️' : '📱'}
+          </Button>
+        )}
+      </View>
+    </View>
+  )
 }
+
+export default Index

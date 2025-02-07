@@ -1,0 +1,26 @@
+@use "sass:math";
+
+// Função para converter hex para rgb
+@function hex-to-rgb($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+// Função para calcular rem a partir de px
+@function rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// Função para calcular em a partir de px
+@function em($px, $context: 16px) {
+  @return math.div($px, $context) * 1em;
+}
+
+// Função para ajustar o brilho de uma cor
+@function adjust-color-brightness($color, $amount) {
+  @return mix(if($amount > 0, white, black), $color, abs($amount) * 100%);
+}
+
+// Função para criar uma cor com transparência
+@function rgba-color($color, $opacity) {
+  @return rgba($color, $opacity);
+} 
